@@ -20,6 +20,9 @@ angular.module('ContactsApp', ['ngRoute', 'ui.router', 'ngResource', 'ngMessages
                 url: '/contact/:id',
                 controller: 'SingleController as single',
                 templateUrl: 'views/single.html'
+            })
+            .otherwise({
+                redirectTo: '/contacts'   
             });
             
         
