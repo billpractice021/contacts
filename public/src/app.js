@@ -21,11 +21,18 @@ angular.module('ContactsApp', ['ngRoute', 'ui.router', 'ngResource', 'ngMessages
                 controller: 'SingleController as single',
                 templateUrl: 'views/single.html'
             })
+            .state('/settings', {
+                url: '/settings',
+                controller: 'SettingsController as settings',
+                templateUrl: 'views/settings.html'
+            })
             .otherwise({
                 redirectTo: '/contacts'   
             });
-            
-        
-        
-    });
-    
+        })
+        .value('options', {})
+        .run(function (options, Fields) {
+            Fields.get().success(function (data) {
+                options.displayed_fields = data;
+            });
+        });
