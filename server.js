@@ -1,5 +1,5 @@
 var express = require("express"),
-    app     = express('./api'), 
+    api     = require('./api'), 
     app     = express(); 
     
 app
