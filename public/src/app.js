@@ -15,6 +15,11 @@ angular.module('ContactsApp', ['ngRoute', 'ui.router', 'ngResource', 'ngMessages
                 url: '/contact/new',
                 controller: 'NewController as new', 
                 templateUrl: 'views/new.html'
+            })
+            .state('/contact/:id', {
+                url: '/contact/:id',
+                controller: 'SingleController as single',
+                templateUrl: 'views/single.html'
             });
             
         
