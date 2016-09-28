@@ -26,7 +26,7 @@ angular.module('ContactsApp', ['ngRoute', 'ui.router', 'ngResource', 'ngMessages
                 controller: 'SettingsController as settings',
                 templateUrl: 'views/settings.html'
             })
-            .otherwise({
+            $routeProvider.otherwise({
                 redirectTo: '/contacts'   
             });
         })
