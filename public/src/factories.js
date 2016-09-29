@@ -1,8 +1,8 @@
 angular.module('ContactsApp')
     .factory('Contact', function ($resource) {
-        return $resource('/api/contact/:id', { id: '@id'}, {
+        return $resource('/api/contact/:id', { id: '@id' }, {
             'update': { method: 'PUT' }
-        }); 
+        });
     })
     .factory('Fields', function ($q, $http, Contact) {
         var url = '/options/displayed_fields',
@@ -31,4 +31,3 @@ angular.module('ContactsApp')
             }
         };
     });
-

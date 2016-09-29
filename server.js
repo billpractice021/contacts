@@ -7,7 +7,11 @@ app
     .use(express.static('./public'))
     .use(users)
     .use('/api', api)
-    .get('*', function (req, res) {
+    .use(function(req, res, next) {
+        console.log("Hello World"); 
+        next(); 
+    })
+    .use(function (req, res) {
         if (!req.user) {
             res.redirect('/login');
         } else {

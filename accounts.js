@@ -3,6 +3,7 @@ var express = require('express'),
     session    = require('express-session'),
     Bourne     = require('bourne'),
     crypto     = require('crypto');
+var chance     = require('chance')();
 
 var router = express.Router(),
     db     = new Bourne('users.json');
@@ -27,11 +28,14 @@ router
     .post('/login', function (req, res) {
         var user = {
             username: req.body.username,
-            password: hash(req.body.password)
+            password: req.body.password
         };
+        console.log(user); 
         db.findOne(user, function (err, data) {
+            console.log(err); 
+            console.log(data); 
             if (data) {
-                req.session.userId = data.id;
+                req.session.userId = data._id;
                 res.redirect('/');
             } else {
                 res.redirect('/login');
@@ -41,14 +45,15 @@ router
     .post('/register', function (req, res) {
         var user = {
             username: req.body.username,
-            password: hash(req.body.password),
-            options: {}
+            password: req.body.password,
+            options: {}, 
+            _id: chance.guid()
         };
 
         db.find({ username: user.username }, function (err, data) {
             if (!data.length) {
                 db.insert(user, function (err, data) {
-                    req.session.userId = data.id;
+                    req.session.userId = data._id;
                     res.redirect('/');
                 });
             } else {
@@ -63,7 +68,7 @@ router
     })
     .use(function (req, res, next) {
         if (req.session.userId) {
-            db.findOne({ id: req.session.userId }, function (err, data) {
+            db.findOne({ _id: req.session.userId }, function (err, data) {
                 req.user = data;
             });
         }
